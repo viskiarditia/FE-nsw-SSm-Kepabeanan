@@ -104,8 +104,7 @@ public class login {
 
         WebElement landingPage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".jumbotron-container")));
         landingPage.isDisplayed();
-
-
+        Thread.sleep(2000);
     }
 
     @When("Pengguna memasukkan Nama Pengguna yang salah dan Kata Sandi yang salah di halaman")

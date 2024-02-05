@@ -5,6 +5,8 @@ Feature: login
   Background: Sudah ada halaman website di Kepabeanan
     Given Pengguna telah membuka situs Kepabeanan
 
+    #Functional Test
+
   Scenario: login Normal
     When Pengguna memasukkan Nama Pengguna dan Kata Sandi dengan Data Valid di halaman
     Then Pengguna sudah berada di halaman arahan
