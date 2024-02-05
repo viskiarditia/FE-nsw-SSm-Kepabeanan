@@ -25,7 +25,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.16.1</version>
+            <version>4.17.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/info.cukes/cucumber-java -->
@@ -39,9 +39,10 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.4.11</version>
+            <version>1.4.14</version>
             <scope>test</scope>
         </dependency>
+
 
 
         <dependency>
@@ -62,9 +63,16 @@
         <dependency>
             <groupId>net.masterthought</groupId>
             <artifactId>cucumber-reporting</artifactId>
-            <version>5.3.1</version>
-            <scope>test</scope>
+            <version>5.7.5</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/net.masterthought/cucumber-reporting -->
+<!--        <dependency>-->
+<!--            <groupId>net.masterthought</groupId>-->
+<!--            <artifactId>cucumber-reporting</artifactId>-->
+<!--            <version>5.3.1</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
@@ -148,7 +156,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <projectName>Template Web Testing</projectName>
+                            <projectName>recruitment Nashta WEB Testing</projectName>
                             <outputDirectory>${project.build.directory}/Report/cucumber-reports</outputDirectory>
                             <cucumberOutput>${project.build.directory}/cucumber/cucumber.json</cucumberOutput>
                             <skippedFails>true</skippedFails>

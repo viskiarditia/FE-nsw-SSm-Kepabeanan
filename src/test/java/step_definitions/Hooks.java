@@ -7,25 +7,32 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+;
+
 
 public class Hooks {
-    public static WebDriver webDriver;
+    public static WebDriver driver;
 
     @Before
     public void openBrowser(){
         ChromeOptions a = new ChromeOptions();
         a.addArguments("--remote-allow-origins=*");
-        WebDriverManager.chromedriver().setup();
+        a.addArguments("--no-sandbox");
+        a.addArguments("--disable-dev-shm-usage");
+//        a.addArguments("--headless");
+        a.addArguments("--window-size=1920,1080");
+        WebDriverManager.chromedriver().driverVersion("121.0.6167.139").setup();
 
-        webDriver = new ChromeDriver();
-        String appUrl = "https://www..com/";
-        webDriver.get(appUrl);
-        webDriver.manage().window().maximize();
+
+        driver= new ChromeDriver(a);
+        String appUrl = "https://account.insw.go.id/";
+        driver.get(appUrl);
+        driver.manage().window().maximize();
     }
 
     @After
     public void closeBrowser(){
-        webDriver.quit();
+        driver.quit();
     }
 
 }
