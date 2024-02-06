@@ -10,5 +10,9 @@ Feature: alur sumbit data
 
   Scenario: Menambahkan Data untuk bisa di submit
     Then Pengguna Memilih masuk ke menu pemberitahuan pengabean KEK
-    And Pengguna mengisi semua tahapan dan formulir pengisian data yang dibutuhkan
+    And Pengguna mengisi semua formulir tahapan Data Perusahaan yang dibutuhkan
+    Then Pengguna mengisi lanjutan formulir tahapan Data Transportasi yang diperlukan
+    And Penguna mengisi lanjutan formulir tahapan Data Komoditi yang di butuhkan
+#    Then Pengguna mengisi lanjutan formulir tahapan Data Layanan
+#    And Pengguna Lanjut ke formulir Data Pengajuan
 

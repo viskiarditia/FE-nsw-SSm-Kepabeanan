@@ -27,7 +27,7 @@ public class login {
 
     @Given("Pengguna telah membuka situs Kepabeanan")
     public void penggunaTelahMembukaSitusKepabeanan() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         WebElement OpenWebsite = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[alt='logoInsw']")));
         OpenWebsite.isDisplayed();
         Assert.assertTrue(true);
@@ -62,7 +62,7 @@ public class login {
 
     @Then("Pengguna sudah berada di halaman arahan")
     public void penggunaSudahBeradaDiHalamanArahan() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         WebElement landingPage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".rounded-2xl")));
         landingPage.isDisplayed();
         Assert.assertTrue(true);
@@ -72,7 +72,7 @@ public class login {
 
     @And("Pengguna Konfirmasi kembali untuk verifikasi login")
     public void penggunaKonfirmasiKembaliUntukVerifikasiLogin() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         Properties properties;
         properties = new Properties();
         try (FileInputStream fileInputStream = new FileInputStream("src/test/resources/config.properties")) {
@@ -109,7 +109,7 @@ public class login {
 
     @When("Pengguna memasukkan Nama Pengguna yang salah dan Kata Sandi yang salah di halaman")
     public void penggunaMemasukkanNamaPenggunaYangSalahDanKataSandiYangSalahDiHalaman() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         Properties properties;
         properties = new Properties();
         try (FileInputStream fileInputStream = new FileInputStream("src/test/resources/config.properties")) {
@@ -133,7 +133,7 @@ public class login {
 
     @Then("Pengguna melihat pesan kesalahan {string}")
     public void penggunaMelihatPesanKesalahan(String data) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         WebElement terjadiKesalahan = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"swal2-content\"]")));
         terjadiKesalahan.getText();
 
@@ -141,7 +141,7 @@ public class login {
 
     @When("Pengguna memasukkan Nama Pengguna yang benar dan Kata Sandi yang salah di halaman")
     public void penggunaMemasukkanNamaPenggunaYangBenarDanKataSandiYangSalahDiHalaman() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         Properties properties;
         properties = new Properties();
         try (FileInputStream fileInputStream = new FileInputStream("src/test/resources/config.properties")) {
@@ -161,5 +161,52 @@ public class login {
 
         WebElement signIn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".btn-primary-dark")));
         signIn.click();
+    }
+
+    @Then("Pengguna Klik Field Username")
+    public void penggunaKlikFieldUsername() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement ClickFieldUsername = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='username']")));
+        ClickFieldUsername.click();
+    }
+
+    @And("Pengguna memasukan berbagai macam Test dalam field Username {string}")
+    public void penggunaMemasukanBerbagaiMacamTestDalamFieldUsername(String dataTestUsername) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement ClickFieldUsername = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='username']")));
+        ClickFieldUsername.sendKeys(dataTestUsername);
+    }
+
+    @Then("Pengguna Klik Field Kata Sandi")
+    public void penggunaKlikFieldKataSandi() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement ClickFieldPassword = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='password']")));
+        ClickFieldPassword.click();
+    }
+
+
+    @And("Pengguna memasukan berbagai macam Test dalam field Password{string}")
+    public void penggunaMemasukanBerbagaiMacamTestDalamFieldPassword(String dataTestPassword) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement ClickFieldPassword = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='password']")));
+        ClickFieldPassword.sendKeys(dataTestPassword);
+    }
+
+    @Then("Pengguna Klik Field Lupa Password")
+    public void penggunaKlikFieldLupaPassword() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement ClickFieldPassword = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.='Lupa Password']")));
+        ClickFieldPassword.click();
+
+    }
+
+    @And("Pengguna memasukan berbagai macam Test dalam field Lupa Password{string}")
+    public void penggunaMemasukanBerbagaiMacamTestDalamFieldLupaPassword(String dataTestLupaPassword) {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement ClickFieldUsername = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='username']")));
+        ClickFieldUsername.sendKeys(dataTestLupaPassword);
+        WebElement ClickFieldEmail = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='email']")));
+        ClickFieldEmail.sendKeys(dataTestLupaPassword);
     }
 }
