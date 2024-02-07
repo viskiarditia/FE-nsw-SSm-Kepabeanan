@@ -1,10 +1,8 @@
 package step_definitions;
 
+import com.fasterxml.jackson.core.json.JsonGeneratorImpl;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import net.bytebuddy.asm.Advice;
-import org.checkerframework.checker.units.qual.K;
-import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -18,13 +16,6 @@ public class alurSubmitData {
     public alurSubmitData(){
         super();
         this.driver = Hooks.driver;
-    }
-    private boolean isElementVisible(WebDriver driver, By locator) {
-        try {
-            return driver.findElement(locator).isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
     }
     @Then("Pengguna Memilih masuk ke menu pemberitahuan pengabean KEK")
     public void penggunaMemilihMasukKeMenuPemberitahuanPengabeanKEK() throws InterruptedException {
@@ -44,7 +35,7 @@ public class alurSubmitData {
         aplikasiKEK.click();
         WebElement pemberitahuanPabeanKEK = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[data-index='0'] .cardBody-dashboard")));
         pemberitahuanPabeanKEK.click();
-        Thread.sleep(25000);
+        Thread.sleep(30000);
     }
 
 
@@ -52,7 +43,10 @@ public class alurSubmitData {
     public void penggunamengisisemuaformulirtahapanDataPerusahaanyangdibutuhkan() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
 
-        WebElement createPermohonan = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@id='createPPKEK']")));
+        WebElement freeClick = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".modal")));
+        freeClick.sendKeys(Keys.ESCAPE);
+
+        WebElement createPermohonan = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("createPPKEK")));
         createPermohonan.click();
         Thread.sleep(1000);
 
@@ -138,14 +132,14 @@ public class alurSubmitData {
         //confirm save
         WebElement confirmSave = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".swal-button--confirm")));
         confirmSave.click();
-        Thread.sleep(2000);
+        Thread.sleep(3000);
 
     }
 
 
     @Then("Pengguna mengisi lanjutan formulir tahapan Data Transportasi yang diperlukan")
     public void penggunaMengisiLanjutanFormulirTahapanDataTransportasiYangDiperlukan() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(35));
         WebElement DATATRANSPORTASI = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[.='Data Transportasi']")));
         DATATRANSPORTASI.click();
 
@@ -172,13 +166,170 @@ public class alurSubmitData {
         WebElement confirmSave = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".swal-button--confirm")));
         confirmSave.click();
 
+        WebElement OKSuccess = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='swal-overlay swal-overlay--show-modal']")));
+        OKSuccess.sendKeys(Keys.ESCAPE);
+
     }
 
     @And("Penguna mengisi lanjutan formulir tahapan Data Komoditi yang di butuhkan")
-    public void pengunaMengisiLanjutanFormulirTahapanDataKomoditiYangDiButuhkan() {
+    public void     pengunaMengisiLanjutanFormulirTahapanDataKomoditiYangDiButuhkan() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         WebElement DATAKOMODITI = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.='Data Komoditi']")));
         DATAKOMODITI.click();
+
+        //Barang
+        WebElement tambahdata = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".flex-grow-0 > #Tooltip > svg")));
+        tambahdata.click();
+
+        //kodeHS
+        WebElement kodeHS = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='kode_hs']/div[@class=' css-1s2u09g-control']//input[1]")));
+        kodeHS.click();
+        kodeHS.sendKeys("123");
+        WebElement selectKodeHS = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='react-select-14-option-0']")));
+        selectKodeHS.click();
+        Thread.sleep(5000);
+
+        //uraian
+        WebElement inputUraian = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='ur_barang']")));
+        inputUraian.sendKeys("testing");
+
+        //merk
+        WebElement inputMerk = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='merk']")));
+        inputMerk.sendKeys("Honda");
+
+        //tipe
+        WebElement inputTipe = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='tipe']")));
+        inputTipe.sendKeys("SUV");
+
+        //ukuran
+        WebElement inputUkuran = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='ukuran']")));
+        inputUkuran.sendKeys("Besar");
+
+        //spesifikasi_lain
+        WebElement inputSpesifikasiLain = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='spesifikasi_lain']")));
+        inputSpesifikasiLain.sendKeys("pinjol");
+
+        //kd_barang
+        WebElement inputKdBarang = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='kd_barang']")));
+        inputKdBarang.sendKeys("12345");
+
+//        Kondisi Barang*
+        //barang_baru
+        WebElement selectBarangBaru = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='barang_baru']")));
+        selectBarangBaru.click();
+        // Misalnya, jika ingin memilih opsi pertama pada dropdown:
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//option[.='Baik']"))).click();
+
+
+//        Negara asal*
+        WebElement negaraAsal= wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='negara_asal']/div[@class=' css-1s2u09g-control']//input[1]")));
+        negaraAsal.click();
+        negaraAsal.sendKeys("Indonesia");
+        WebElement negaraAsal1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='react-select-15-option-0']")));
+        negaraAsal1.click();
+
+//        Daerah Asal Barang*
+        WebElement DaerahAsalBarang= wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='daerah_asal_barang']/div[@class=' css-1s2u09g-control']//input[1]")));
+        DaerahAsalBarang.click();
+        DaerahAsalBarang.sendKeys("Bandung");
+        WebElement DaerahAsalBarang1= wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='react-select-16-option-0']")));
+        DaerahAsalBarang1.click();
+
+//                Netto*
+        WebElement Netto= wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='modal-content']//div[@class='mb-3 row form-group']/div[1]/input[@class='form-control']")));
+        Netto.click();
+        Netto.sendKeys("12345");
+
+//                Bruto*
+        WebElement Bruto= wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='modal-content']//div[@class='mb-3 row form-group']/div[3]/input[@class='form-control']")));
+        Bruto.click();
+        Bruto.sendKeys("12345");
+
+//                Jumlah Satuan*
+        WebElement JumlahSatuan= wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='modal-content']//div[8]/div[1]/input[@class='form-control']")));
+        JumlahSatuan.click();
+        JumlahSatuan.sendKeys("12345");
+
+//                Kode Satuan*
+        WebElement KodeSatuan= wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='modal-content']/div[@class='modal-body']//div[2]//div[@class=' css-1s2u09g-control']//input[1]")));
+        KodeSatuan.click();
+        KodeSatuan.sendKeys("12");
+        WebElement KodeSatuan1= wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='react-select-17-option-0']")));
+        KodeSatuan1.click();
+
+//                Jumlah Kemasan*
+        WebElement JumlahKemasan= wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='modal-content']//div[8]/div[3]/input[@class='form-control']")));
+        JumlahKemasan.click();
+        JumlahKemasan.sendKeys("123");
+
+//                Kode Kemasan*
+        WebElement KodeKemasan= wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='modal-content']//div[@class='mt-3 row form-group']/div[4]//div[@class=' css-1s2u09g-control']//input[1]")));
+        KodeKemasan.click();
+        KodeKemasan.sendKeys("12");
+        WebElement KodeKemasan1= wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='react-select-18-option-0']")));
+        KodeKemasan1.click();
+
+//                Simpan*
+        WebElement Simpan= wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='modal-content']//div[@class='tab-pane active']//button[@class='btn-pill pull-right btn btn-success']")));
+        Simpan.click();
+
+        //confirm save
+        WebElement confirmSave = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".swal2-confirm")));
+        confirmSave.click();
+        Thread.sleep(2000);
+
+        WebElement OKSuccess = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".swal2-confirm")));
+        OKSuccess.click();
+//        .swal2-container
+         Thread.sleep(3000);
+
+//        Kontainer
+        WebElement kontainer = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[.='Kontainer']")));
+        kontainer.click();
+
+        WebElement tambahDataKontainer = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".col-12.mb-4 .mb-2 > #Tooltip")));
+        tambahDataKontainer.click();
+//         nomorKontainer
+        WebElement nomorKontainer = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='nomor_kontainer']")));
+        nomorKontainer.sendKeys("MSCU5285725");
+//          Stuffing
+        WebElement Stuffing = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='stuffing']")));
+        Stuffing.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//option[.='EMPTY']"))).click();
+//        Stuffing.sendKeys("//option[.='EMPTY']");
+
+//          jenisSeal
+        WebElement seal = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='jenis_seal']")));
+        seal.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//option[.='Carrier']"))).click();
+//        seal.sendKeys("//option[.='Carrier']");
+
+//          nomorSeal
+        WebElement nomorSeal = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='nomor_seal']")));
+        nomorSeal.sendKeys("12345");
+
+//            tipeKontainer
+        WebElement tipeKontainer = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='tipe_kontainer']")));
+        tipeKontainer.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//option[.='TUNNE TYPE']"))).click();
+//        tipeKontainer.sendKeys("//option[.='TUNNE TYPE']");
+
+//            ukuranKontainer
+        WebElement ukuranKontainer = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='ukuran_container']")));
+        ukuranKontainer.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//option[.='20 Feet']"))).click();
+//        ukuranKontainer.sendKeys("//option[.='20 Feet']");
+
+        WebElement simpanKontainer = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='modal-body']//button[@class='btn-pill pull-right btn btn-success']")));
+        simpanKontainer.click();
+
+        //confirm save
+        WebElement confirmSave2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".swal2-confirm")));
+        confirmSave2.click();
+        Thread.sleep(2000);
+
+        WebElement OKSuccess2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".swal2-confirm")));
+        OKSuccess2.click();
 
     }
 
@@ -188,13 +339,22 @@ public class alurSubmitData {
         WebElement DATALAYANAN = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.='Layanan']")));
         DATALAYANAN.click();
 
+        WebElement aksi = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#tooltip-pengajuan")));
+        aksi.click();
+
+        WebElement OKSuccess = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".swal2-confirm")));
+        OKSuccess.click();
+
+
     }
 
     @And("Pengguna Lanjut ke formulir Data Pengajuan")
     public void penggunaLanjutKeFormulirDataPengajuan() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        WebElement DATAPENGAJUAN = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.='Data Pengajuan']")));
-        DATAPENGAJUAN.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(35));
+//        WebElement DATAPENGAJUAN = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.='Data Pengajuan']")));
+//        DATAPENGAJUAN.click();
+
+
     }
 }
 
