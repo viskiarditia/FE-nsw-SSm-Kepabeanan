@@ -1,0 +1,4 @@
+step_definitions/login.class
+step_definitions/RunCukesTest.class
+step_definitions/alurSubmitData.class
+step_definitions/Hooks.class

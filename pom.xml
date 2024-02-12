@@ -156,7 +156,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <projectName>recruitment Nashta WEB Testing</projectName>
+                            <projectName>Testing Pabeak KEK</projectName>
                             <outputDirectory>${project.build.directory}/Report/cucumber-reports</outputDirectory>
                             <cucumberOutput>${project.build.directory}/cucumber/cucumber.json</cucumberOutput>
                             <skippedFails>true</skippedFails>

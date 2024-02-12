@@ -14,5 +14,4 @@ Feature: alur sumbit data
     Then Pengguna mengisi lanjutan formulir tahapan Data Transportasi yang diperlukan
     And Penguna mengisi lanjutan formulir tahapan Data Komoditi yang di butuhkan
     Then Pengguna mengisi lanjutan formulir tahapan Data Layanan
-#    And Pengguna Lanjut ke formulir Data Pengajuan
-
+    And Pengguna Lanjut ke formulir Data Pengajuan

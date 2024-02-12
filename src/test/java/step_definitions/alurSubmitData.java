@@ -3,6 +3,9 @@ package step_definitions;
 import com.fasterxml.jackson.core.json.JsonGeneratorImpl;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import org.checkerframework.checker.units.qual.A;
+import org.checkerframework.checker.units.qual.K;
+import org.checkerframework.checker.units.qual.N;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -35,7 +38,8 @@ public class alurSubmitData {
         aplikasiKEK.click();
         WebElement pemberitahuanPabeanKEK = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[data-index='0'] .cardBody-dashboard")));
         pemberitahuanPabeanKEK.click();
-        Thread.sleep(30000);
+
+        Thread.sleep(40000);
     }
 
 
@@ -43,8 +47,8 @@ public class alurSubmitData {
     public void penggunamengisisemuaformulirtahapanDataPerusahaanyangdibutuhkan() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
 
-        WebElement freeClick = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".modal")));
-        freeClick.sendKeys(Keys.ESCAPE);
+//        WebElement freeClick = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".modal")));
+//        freeClick.sendKeys(Keys.ESCAPE);
 
         WebElement createPermohonan = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("createPPKEK")));
         createPermohonan.click();
@@ -132,7 +136,7 @@ public class alurSubmitData {
         //confirm save
         WebElement confirmSave = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".swal-button--confirm")));
         confirmSave.click();
-        Thread.sleep(3000);
+        Thread.sleep(4000);
 
     }
 
@@ -349,12 +353,100 @@ public class alurSubmitData {
     }
 
     @And("Pengguna Lanjut ke formulir Data Pengajuan")
-    public void penggunaLanjutKeFormulirDataPengajuan() {
+    public void penggunaLanjutKeFormulirDataPengajuan() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(35));
 //        WebElement DATAPENGAJUAN = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.='Data Pengajuan']")));
 //        DATAPENGAJUAN.click();
 
+        // Data Pengajuan
+        // tahap 1
+        WebElement KantorPabeanPengawas = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='pabean_asal']/div[@class=' css-1s2u09g-control']//input[1]")));
+        KantorPabeanPengawas.click();
+        KantorPabeanPengawas.sendKeys("Jakarta");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("react-select-14-option-6"))).click();
 
+        // Jenis PPKEK
+        WebElement JenisPPKEK = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='jenis_ppkek']")));
+        JenisPPKEK.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//option[.='Biasa']"))).click();
+
+        // Transaksi Keluar
+        WebElement TransaksiKeluar = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='kd_transaksi']")));
+        TransaksiKeluar.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//option[.='Penjualan']"))).click();
+
+        // Tujuan Pengiriman
+        WebElement TujuanPengiriman = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='kd_pengiriman']")));
+        TujuanPengiriman.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//option[.='1-PENYERAHAN BKP']"))).click();
+
+        //Aksi
+        WebElement Aksi = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class='btn-pill pull-right btn btn-primary']")));
+        Aksi.click();
+        Thread.sleep(2000);
+        Aksi.click();
+
+        // tahap 2
+
+        WebElement importir = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='status_importir']")));
+        importir.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//option[.='AEO']"))).click();
+
+        WebElement checkBox = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='checkbox_pemilik_barang']")));
+        checkBox.click();
+
+        WebElement namaPJ = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='nama_pj']")));
+        namaPJ.click();
+        namaPJ.sendKeys("admin");
+
+        WebElement jabatan = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='jabatan']")));
+        jabatan.click();
+        jabatan.sendKeys("staff");
+
+        WebElement kotaPenandatanganan = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='kota_penandatangan']/div/div/div[2]")));
+        kotaPenandatanganan.click();
+        kotaPenandatanganan.sendKeys("Depok");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#react-select-21-input"))).click();
+
+        WebElement telepon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='telepon']")));
+        telepon.sendKeys("12345");
+
+        WebElement email = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='email']")));
+        email.sendKeys("anjay@gmail.com");
+
+        WebElement Alamat = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//textarea[@id='alamat']")));
+        Alamat.sendKeys("jalan pramuka mampang selatan depok");
+
+        WebElement ArrowRight = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".fa-arrow-right")));
+        ArrowRight.click();
+
+
+        WebElement Incoterms = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='kd_incoterm']")));
+        Incoterms.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//option[.='Fr. Gudang Pembeli']"))).click();
+
+        WebElement Valuta = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='kd_valuta']")));
+        Valuta.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//option[.='AUD-Australia']"))).click();
+
+        WebElement NilaiCIFAUD = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".col-md-4:nth-child(1) > .form-control")));
+        NilaiCIFAUD.sendKeys("12345");
+
+        WebElement HargaPenyerahan = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".col-md-4:nth-child(2) > .form-control")));
+        HargaPenyerahan.sendKeys("12345");
+
+
+        WebElement Update = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='border-0 card']//div[@class='tab-pane active']//button[@class='btn-pill pull-right btn btn-success']")));
+        Update.click();
+
+
+
+
+
+        // Data Pengangkutan
+        // Dokumen
+        // Data Komoditi
+        // Check Point
     }
 }
 

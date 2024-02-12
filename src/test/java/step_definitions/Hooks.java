@@ -19,7 +19,7 @@ public class Hooks {
         a.addArguments("--remote-allow-origins=*");
         a.addArguments("--no-sandbox");
         a.addArguments("--disable-dev-shm-usage");
-//        a.addArguments("--headless");
+        a.addArguments("--headless");
         a.addArguments("--window-size=1920,1080");
         WebDriverManager.chromedriver().driverVersion("121.0.6167.139").setup();
 
