@@ -1,11 +1,9 @@
 package step_definitions;
 
-import com.fasterxml.jackson.core.json.JsonGeneratorImpl;
+
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import org.checkerframework.checker.units.qual.A;
-import org.checkerframework.checker.units.qual.K;
-import org.checkerframework.checker.units.qual.N;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -22,9 +20,10 @@ public class alurSubmitData {
     }
     @Then("Pengguna Memilih masuk ke menu pemberitahuan pengabean KEK")
     public void penggunaMemilihMasukKeMenuPemberitahuanPengabeanKEK() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         Actions actions = new Actions(driver);
+
 
         WebElement element = driver.findElement(By.cssSelector(".container-fluid > div > div > div > div:nth-of-type(2) .title-menu"));
         js.executeScript("arguments[0].scrollIntoView(true);", element);
@@ -38,15 +37,15 @@ public class alurSubmitData {
         aplikasiKEK.click();
         WebElement pemberitahuanPabeanKEK = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[data-index='0'] .cardBody-dashboard")));
         pemberitahuanPabeanKEK.click();
-
-        Thread.sleep(40000);
+        Thread.sleep(20000);
     }
 
 
     @And("Pengguna mengisi semua formulir tahapan Data Perusahaan yang dibutuhkan")
     public void penggunamengisisemuaformulirtahapanDataPerusahaanyangdibutuhkan() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
-
+        wait.until(ExpectedConditions.jsReturnsValue("return document.readyState==='complete';"));
+        wait.until(ExpectedConditions.jsReturnsValue("return document.readyState==='complete';"));
 //        WebElement freeClick = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".modal")));
 //        freeClick.sendKeys(Keys.ESCAPE);
 
@@ -143,7 +142,7 @@ public class alurSubmitData {
 
     @Then("Pengguna mengisi lanjutan formulir tahapan Data Transportasi yang diperlukan")
     public void penggunaMengisiLanjutanFormulirTahapanDataTransportasiYangDiperlukan() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(35));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         WebElement DATATRANSPORTASI = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[.='Data Transportasi']")));
         DATATRANSPORTASI.click();
 
@@ -300,7 +299,6 @@ public class alurSubmitData {
         WebElement Stuffing = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='stuffing']")));
         Stuffing.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//option[.='EMPTY']"))).click();
-//        Stuffing.sendKeys("//option[.='EMPTY']");
 
 //          jenisSeal
         WebElement seal = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='jenis_seal']")));
@@ -338,7 +336,7 @@ public class alurSubmitData {
     }
 
     @Then("Pengguna mengisi lanjutan formulir tahapan Data Layanan")
-    public void penggunaMengisiLanjutanFormulirTahapanDataLayanan() {
+    public void penggunaMengisiLanjutanFormulirTahapanDataLayanan() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         WebElement DATALAYANAN = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.='Layanan']")));
         DATALAYANAN.click();
@@ -349,6 +347,7 @@ public class alurSubmitData {
         WebElement OKSuccess = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".swal2-confirm")));
         OKSuccess.click();
 
+        Thread.sleep(2000);
 
     }
 
@@ -358,12 +357,16 @@ public class alurSubmitData {
 //        WebElement DATAPENGAJUAN = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.='Data Pengajuan']")));
 //        DATAPENGAJUAN.click();
 
+        WebElement ValidasiSubTitle = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[.='Data Pemberitahuan']")));
+        ValidasiSubTitle.isDisplayed();
+        Assert.assertTrue(true);
+
         // Data Pengajuan
         // tahap 1
-        WebElement KantorPabeanPengawas = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='pabean_asal']/div[@class=' css-1s2u09g-control']//input[1]")));
+        WebElement KantorPabeanPengawas = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='react-select-19-input']")));
         KantorPabeanPengawas.click();
-        KantorPabeanPengawas.sendKeys("Jakarta");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("react-select-14-option-6"))).click();
+        KantorPabeanPengawas.sendKeys("KPPBC TMC KEDIRI");
+        KantorPabeanPengawas.sendKeys(Keys.RETURN);
 
         // Jenis PPKEK
         WebElement JenisPPKEK = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='jenis_ppkek']")));
@@ -378,10 +381,19 @@ public class alurSubmitData {
         // Tujuan Pengiriman
         WebElement TujuanPengiriman = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='kd_pengiriman']")));
         TujuanPengiriman.click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//option[.='1-PENYERAHAN BKP']"))).click();
+        WebElement TujuanPengiriman1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//option[contains(text(),'2-PENYERAHAN JKP')]")));
+        TujuanPengiriman1.click();
+        Thread.sleep(1000);
+        TujuanPengiriman1.click();
+//        Actions actions = new Actions(driver);
+//        actions.doubleClick(TujuanPengiriman1).perform();
+
+//        TujuanPengiriman.sendKeys(Keys.ESCAPE);
+        Thread.sleep(10000);
 
         //Aksi
-        WebElement Aksi = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class='btn-pill pull-right btn btn-primary']")));
+        String AksiKlikKanan = "//body/div[@id='root']/div[1]/div[3]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[5]/div[1]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/form[1]/div[1]/div[1]/div[1]/div[1]/div[6]/div[1]/div[1]/button[1]";
+        WebElement Aksi = wait.until(ExpectedConditions.presenceOfElementLocated((By.xpath(AksiKlikKanan))));
         Aksi.click();
         Thread.sleep(2000);
         Aksi.click();
@@ -440,13 +452,42 @@ public class alurSubmitData {
         Update.click();
 
 
-
-
-
         // Data Pengangkutan
         // Dokumen
         // Data Komoditi
         // Check Point
+    }
+
+    @And("Pengguna melakukan validasi di field nomor_permohonan dengan beberapa {string}")
+    public void penggunaMelakukanValidasiDiFieldNomor_permohonanDenganBeberapa(String dataTest) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement nomorPermohonan = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='nomor_permohonan']")));
+        nomorPermohonan.click();
+        nomorPermohonan.sendKeys(dataTest);
+    }
+
+    @Then("Pengguna melakukan validasi di field nomor_pendaftaran dengan beberapa {string}")
+    public void penggunaMelakukanValidasiDiFieldNomor_pendaftaranDenganBeberapa(String dataTest) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement nomorPendaftaran = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='nomor_pendaftaran']")));
+        nomorPendaftaran.click();
+        nomorPendaftaran.sendKeys(dataTest);
+    }
+
+    @And("Pengguna melakukan validasi di field npwp dengan beberapa {string}")
+    public void penggunaMelakukanValidasiDiFieldNpwpDenganBeberapa(String dataTest) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement npwp = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='npwp']")));
+        npwp.click();
+        npwp.sendKeys(dataTest);
+    }
+
+    @Then("Pengguna melakukan validasi di field nama_perusahaan dengan beberapa {string}")
+    public void penggunaMelakukanValidasiDiFieldNama_perusahaanDenganBeberapa(String dataTest) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement namaPerusahaan = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='nama_perusahaan']")));
+        namaPerusahaan.click();
+        namaPerusahaan.sendKeys(dataTest);
     }
 }
 

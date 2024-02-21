@@ -66,13 +66,14 @@
             <version>5.7.5</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/net.masterthought/cucumber-reporting -->
+        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
 <!--        <dependency>-->
-<!--            <groupId>net.masterthought</groupId>-->
-<!--            <artifactId>cucumber-reporting</artifactId>-->
-<!--            <version>5.3.1</version>-->
+<!--            <groupId>org.testng</groupId>-->
+<!--            <artifactId>testng</artifactId>-->
+<!--            <version>7.9.0</version>-->
 <!--            <scope>test</scope>-->
 <!--        </dependency>-->
+
     </dependencies>
 
     <build>

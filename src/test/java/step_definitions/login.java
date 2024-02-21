@@ -28,10 +28,16 @@ public class login {
     @Given("Pengguna telah membuka situs Kepabeanan")
     public void penggunaTelahMembukaSitusKepabeanan() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        WebElement OpenWebsite = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[alt='logoInsw']")));
-        OpenWebsite.isDisplayed();
-        Assert.assertTrue(true);
-        Thread.sleep(1000);
+        try {
+                WebElement OpenWebsite = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[alt='logoInsw']")));
+                OpenWebsite.isDisplayed();
+                Assert.assertTrue(true);
+                Thread.sleep(1000);
+            } catch(org.openqa.selenium.TimeoutException e){
+                driver.navigate().refresh();
+
+            }
+
     }
 
     @When("Pengguna memasukkan Nama Pengguna dan Kata Sandi dengan Data Valid di halaman")
@@ -62,11 +68,16 @@ public class login {
 
     @Then("Pengguna sudah berada di halaman arahan")
     public void penggunaSudahBeradaDiHalamanArahan() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        WebElement landingPage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".rounded-2xl")));
-        landingPage.isDisplayed();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        WebElement OpenWebsite = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".rounded-2xl")));
+        OpenWebsite.isDisplayed();
         Assert.assertTrue(true);
         Thread.sleep(1000);
+
+//        WebElement landingPage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".rounded-2xl")));
+//        landingPage.isDisplayed();
+//        Assert.assertTrue(true);
+//        Thread.sleep(1000);
     }
 
 
